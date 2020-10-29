@@ -21,4 +21,4 @@ const issueSchema = new Schema({
     }
 })
 
-module.exprorts = mongoose.model("Issue", issueSchema)
+module.exports = mongoose.model("Issue", issueSchema)

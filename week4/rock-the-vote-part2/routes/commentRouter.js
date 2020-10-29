@@ -37,7 +37,7 @@ commentRouter.get("/:userID", (req, res, next) => {
 
 // Add new comment
 commentRouter.post("/", (req, res, next) => {
-    req.body.user = req.params.userID
+    req.body.user = req.user._id
     const newComment = new Comment(req.body)
     newComment.save((err, savedComment) => {
         if(err){
