@@ -53,7 +53,7 @@ userRouter.post("/", (req, res, next) => {
 // Delete
 userRouter.delete("/:userId", (req, res, next) => {
     User.findOneAndDelete(
-        { _id: req.params.userId },
+        { _id: req.params.userId }, //, user: req.user._id
         (err, deletedUser) => {
             if(err){
                 res.status(500)

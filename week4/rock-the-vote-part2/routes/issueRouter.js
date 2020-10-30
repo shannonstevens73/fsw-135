@@ -14,8 +14,8 @@ issueRouter.get("/", (req, res, next) => {
 })
 
 // Get One
-issueRouter.get("/:issueId", (req, res, next) => {
-    Issue.findById(req.params.inventoryId, (err, issueItem) => {
+issueRouter.get("/one/:issueId", (req, res, next) => {
+    Issue.findById(req.params.issueId, (err, issueItem) => {
         if (err) {
         res.status(500)
         return next(err)
@@ -24,9 +24,11 @@ issueRouter.get("/:issueId", (req, res, next) => {
     })  
 })
 
-// Get by User
-issueRouter.get("/:userID", (req, res, next) => {
-    Issue.find({ user: req.params.userID }, (err, issues) => {
+// Get issues by user id
+// localhost:8000/api/issue/user
+issueRouter.get("/user", (req, res, next) => {
+    console.log(req.user._id)
+    Issue.find({ user: req.user._id }, (err, issues) => {
         if(err){
             res.status(500)
             return next(err)
@@ -34,6 +36,17 @@ issueRouter.get("/:userID", (req, res, next) => {
         return res.status(200).send(issues)
     })
 })
+
+// Get by User
+// issueRouter.get("/:userID", (req, res, next) => {
+//     Issue.find({ user: req.params.userID }, (err, issues) => {
+//         if(err){
+//             res.status(500)
+//             return next(err)
+//         }
+//         return res.status(200).send(issues)
+//     })
+// })
 
 // Add new issue
 issueRouter.post("/", (req, res, next) => {
@@ -78,7 +91,7 @@ issueRouter.get("/search/bylikes", (req, res, next) => {
 // Delete
 issueRouter.delete("/:issueId", (req, res, next) => {
     Issue.findOneAndDelete(
-        { _id: req.params.issueId },
+        { _id: req.params.issueId, user: req.user._id },
         (err, deletedIssue) => {
             if(err){
                 res.status(500)
@@ -92,7 +105,7 @@ issueRouter.delete("/:issueId", (req, res, next) => {
 // Update
 issueRouter.put("/:issueId", (req, res, next) => {
     Issue.findOneAndUpdate(
-        { _id: req.params.issueId },
+        { _id: req.params.issueId, user: req.user._id },
         req.body,
         { new: true },
         (err, updatedIssue) => {

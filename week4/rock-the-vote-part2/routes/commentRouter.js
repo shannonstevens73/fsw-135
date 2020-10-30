@@ -24,6 +24,18 @@ commentRouter.get("/:commentId", (req, res, next) => {
     })  
 })
 
+// Get comments by user id
+// localhost:8000/api/comment/user
+commentRouter.get("/user", (req, res, next) => {
+    Comment.find({ user: req.user._id }, (err, comments) => {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(comments)
+    })
+})
+
 // Get by User
 commentRouter.get("/:userID", (req, res, next) => {
     Comment.find({ user: req.params.userID }, (err, comments) => {
@@ -67,7 +79,7 @@ commentRouter.put("/like/:commentID", (req, res, next) => {
 // Delete
 commentRouter.delete("/:commentId", (req, res, next) => {
     Comment.findOneAndDelete(
-        { _id: req.params.commentId },
+        { _id: req.params.commentId, user: req.user._id },
         (err, deletedComment) => {
             if(err){
                 res.status(500)
@@ -81,7 +93,7 @@ commentRouter.delete("/:commentId", (req, res, next) => {
 // Update
 commentRouter.put("/:commentId", (req, res, next) => {
     Comment.findOneAndUpdate(
-        { _id: req.params.commentId },
+        { _id: req.params.commentId, user: req.user._id },
         req.body,
         { new: true },
         (err, updatedComment) => {
