@@ -1,8 +1,9 @@
 import React from 'react'
+import IssuesList from './IssuesList.js'
 
-export default function Issue(){
+export default function Issues(){
   return (
-    <div className="issue">
+    <div className="issues">
 
     </div>
   )
