@@ -25,6 +25,7 @@ export default function UserProvider(props){
     axios.post("/auth/signup", credentials)
       .then(res => {
         const { user, token } = res.data
+        console.log(res, "line 28 Provider")
         localStorage.setItem("token", token)
         localStorage.setItem("user", JSON.stringify(user))
         setUserState(prevUserState => ({
