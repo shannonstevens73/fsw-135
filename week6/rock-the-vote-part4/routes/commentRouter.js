@@ -36,6 +36,19 @@ commentRouter.get("/user", (req, res, next) => {
     })
 })
 
+// Get comment by Issue
+commentRouter.get("issue/:issueID", (req, res, next) => {
+    console.log("getting by isues")
+    Comment.find({ issue: req.params.issueID }, (err, comments) => {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        console.log(comments)
+        return res.status(200).send(comments)
+    })
+})
+
 // Get by User
 commentRouter.get("/:userID", (req, res, next) => {
     Comment.find({ user: req.params.userID }, (err, comments) => {

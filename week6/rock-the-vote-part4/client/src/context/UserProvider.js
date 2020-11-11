@@ -84,9 +84,22 @@ export default function UserProvider(props){
           ...prevState,
           issues: res.data  // issue
         }))
+        localStorage.setItem("issue", res.data)
       })
       .catch(err => console.log(err.response.data.errMsg))
   }
+
+  // function getIssueComment(id){  // issue
+  //   userAxios.get("/api/comment/" + id).then(res => {
+  //     console.log(res)
+  //     setComments(res.data)
+  //       setUserState(prevState => ({
+  //         ...prevState,
+  //         comment: res.data  // issue
+  //       }))
+  //     })
+  //     .catch(err => console.log(err.response.data.errMsg))
+  // }
 
   function addIssues(newIssues){  // issue
     userAxios.post("/api/issue", newIssues)
@@ -99,6 +112,17 @@ export default function UserProvider(props){
       .catch(err => console.log(err.response.data.errMsg))
   }
 
+  // function addComment(newComment){  // issue
+  //   userAxios.post("/api/issue", newComment)
+  //     .then(res => {
+  //       setUserState(prevState => ({
+  //         ...prevState,
+  //         comment: [...prevState.comment, res.data]
+  //       }))
+  //     })
+  //     .catch(err => console.log(err.response.data.errMsg))
+  // }
+
   return (
     <UserContext.Provider
       value={{
@@ -107,6 +131,8 @@ export default function UserProvider(props){
         login,
         logout,
         addIssues,
+        // addComment,
+        // getIssueComment,
         resetAuthErr
       }}>
       { props.children }

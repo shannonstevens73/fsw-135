@@ -2,7 +2,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: lighter;
   font-family: sans-serif;
   color: navy;
   outline: none;
@@ -10,7 +11,7 @@
 }
 
 .app {
-  background-color: #eee9;
+  background-color: white;
 }
 
 .navbar {
@@ -63,13 +64,15 @@
   border-radius: 4px;
 }
 
-/* .issue-list {
-  color: red;
+.issue-list {
+  color: navy;
+  text-align: center;
 }
 
 .issue {
-  color: red
-} */
+ color: navy;
+text-align: center;
+}
 
 .public {
   height: 100vh;
